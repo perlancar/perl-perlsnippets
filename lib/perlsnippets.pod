@@ -168,7 +168,22 @@ Related documentation: C<$?> in L<perlvar>.
 
 =head1 SUB/ARG (Subroutines / Subroutine Arguments)
 
+=head2 SUB/ARG/1 (Assign hash arguments)
 
+ my %args = @_;
+
+=head2 SUB/ARG/2 (Assign hash arguments in method)
+
+ my ($self, %args) = @_;
+
+=head2 SUB/ARG/3 (Assign hash arguments in method, shift $self)
+
+ my ($self, %args) = (shift, @_);
+
+This variant shifts C<$self> from C<@_> first, so you can do this later:
+
+ $self->yet_other_method(...);
+ $self->SUPER::method(@_);
 
 
 =head1 SEE ALSO
