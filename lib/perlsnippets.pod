@@ -52,7 +52,7 @@ Related documentation: L<https://en.wikipedia.org/wiki/Schwartzian_transform>
 
 =head1 IO/FILE (I/O / File I/O)
 
-=head2 IO/FILE/1 (Slurping a file content into a string)
+=head2 IO/FILE/1 (Slurp a file content into a string)
 
  my $content = do { local $/; <$fh> };
 
@@ -60,18 +60,18 @@ The above snippet slurps the whole file (which has been opened with filehandle
 C<$fh>) into memory (scalar variable). The C<do {}> block localizes the effect
 of C<$/>. If you start from a filename and want to open it first:
 
-=head2 IO/FILE/2 (Slurping a file content into a string)
+=head2 IO/FILE/2 (Slurp a file content into a string)
 
  my $content = do { local $/; open my $fh, "<", $filename; <$fh> };
 
-=head2 IO/FILE/3 (Slurping a file content into array of strings)
+=head2 IO/FILE/3 (Slurp a file content into array of strings)
 
  my @lines = do { local $/; open my $fh, "<", $filename; <$fh> };
 
 Like the previous snippet but you get the content as an array of lines. Each
 line still has their terminating newlines.
 
-=head2 IO/FILE/4 (Slurping a file content into array of strings)
+=head2 IO/FILE/4 (Slurp a file content into array of strings)
 
  chomp(my @lines = do { local $/; open my $fh, "<", $filename; <$fh> });
 
@@ -87,7 +87,7 @@ Related documentation: C<$/> in L<perlvar>.
 
 =head1 MOD (Modules)
 
-=head2 MOD/LOAD/1 (Requiring a module by name from variable)
+=head2 MOD/LOAD/1 (Require a module by name from variable)
 
  { (my $mod_pm = "$mod.pm") =~ s!::!/!g; require $mod_pm }
 
@@ -104,7 +104,7 @@ Related modules: L<Module::Load>
 
 Related documentation: C<require> in L<perlfunc>.
 
-=head2 MOD/LOAD/2 (Requiring a module and importing from it)
+=head2 MOD/LOAD/2 (Require a module and importing from it)
 
  require Foo::Bar; Foo::Bar->import("baz", "qux");
 
