@@ -12,6 +12,10 @@ they have been refactored as modules but you still want to "inline" them to
 avoid adding a dependency. The pieces of code are often Perl idioms (patterns of
 code that are specific to Perl programming), but not always.
 
+Keywords: idiom, snippet, pattern
+
+
+
 
 =head1 ARY (Arrays)
 
@@ -184,6 +188,8 @@ This variant shifts C<$self> from C<@_> first, so you can do this later:
 
  $self->yet_other_method(...);
  $self->SUPER::method(@_);
+
+
 
 
 =head1 SEE ALSO
