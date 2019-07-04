@@ -237,7 +237,37 @@ This variant shifts C<$self> from C<@_> first, so you can do this later:
  $self->yet_other_method(...);
  $self->SUPER::method(@_);
 
+=head1 SUB/CODE (Subroutines / Code In Subroutines)
 
+=head2 SUB/CODE/1 (Run code in subroutine only once)
+
+ my $code_run;
+ sub yoursub {
+     unless ($code_run) {
+         ... # blah
+         $code_run++;
+     }
+     ...
+ }
+
+When C<yoursub()> is first called, code in C<# blah> will be run. On subsequent
+calls, the code will not be run again. This can be done to do initialization,
+DIY caching, etc.
+
+=head2 SUB/CODE/2 (Run code in subroutine only once, variant 2)
+
+Another variant for L</"SUB/CODE/1"> is to (mis)use state variable:
+
+ use feature 'state';
+ sub yoursub {
+     state $init = do {
+         ... # blah
+     };
+     ...
+ }
+
+State variables require perl 5.10, which all systems should already have. But
+you still have to say C<use feature 'state';> or at least C<use 5.010;>.
 
 
 =head1 SEE ALSO
