@@ -139,6 +139,22 @@ Related documentation: C<$/> in L<perlvar>.
 
 =head1 MOD (Modules)
 
+=head2 MOD/EXPORT/1 (Export requested symbols)
+
+ sub import {
+     # NOTE: make sure 'no strict "refs"' is in effect
+     my $pkg = shift;
+     my $caller = caller;
+     for my $sym (@_) {
+         if ($sym eq 'foo' || $sym eq 'bar') { *{"$caller\::$sym"} = \&{$sym} }
+         else { die "$sym is not exported!" }
+     }
+ }
+
+This is for (the rare) cases when you want to avoid using L<Exporter> and do
+your own exporting. The above snippet can export from a fixed list of exportable
+subroutines.
+
 =head2 MOD/LOAD/1 (Require a module by name from variable)
 
  { (my $mod_pm = "$mod.pm") =~ s!::!/!g; require $mod_pm }
