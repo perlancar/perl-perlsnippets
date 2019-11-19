@@ -92,6 +92,41 @@ Related documentation: L<https://en.wikipedia.org/wiki/Schwartzian_transform>
 
 
 
+=head1 ARY/UNIQ (Arrays / Removing duplicates from array)
+
+Of course, the obvious way is to use L<List::Util>'s C<uniq> (or C<uniqnum>):
+
+ use List::Util 'uniq';
+ my @uniq = uniq(@ary);
+
+But the snippets below might be useful in cases where you cannot or do not want
+use a module. Most (if not all) of the techniques described below will involve
+the use of a hash.
+
+=head1 ARY/UNIQ/1 (Removing duplicates from array, losing order)
+
+ my %hash = map {$_=>1} @ary;
+ my @uniq = keys %hash;
+
+Single statement variant:
+
+ my @uniq = do { my %hash = map {$_=>1} @ary; keys %hash };
+
+Using this snippet, you will lose the original order of array elements, which is
+often undesirable.
+
+=head1 ARY/UNIQ/2 (Removing duplicates from array, maintaining order)
+
+ my (%hash, @uniq);
+ for (@ary) { push @uniq, $_ unless $hash{$_}++ }
+
+Single statement variant:
+
+ my @uniq = do { my %seen; grep { !$seen{$_}++ } @ary };
+
+
+
+
 =head1 HASH (Hashes)
 
 
