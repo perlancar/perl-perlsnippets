@@ -320,6 +320,13 @@ Another variant for L</"SUB/CODE/1"> is to (mis)use state variable:
 State variables require perl 5.10, which all systems should already have. But
 you still have to say C<use feature 'state';> or at least C<use 5.010;>.
 
+=head2 SUB/DEFINED/1 (Check if a function is defined)
+
+ say "Function foo is defined" if defined &foo;
+ say "Function MyPackage::foo is defined" if defined &MyPackage::foo;
+
+
+
 
 =head1 SEE ALSO
 
