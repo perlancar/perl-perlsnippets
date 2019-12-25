@@ -325,6 +325,29 @@ you still have to say C<use feature 'state';> or at least C<use 5.010;>.
  say "Function foo is defined" if defined &foo;
  say "Function MyPackage::foo is defined" if defined &MyPackage::foo;
 
+This includes routines imported from another package:
+
+ use Data::Dump; # exports dd()
+ say "Function dd is defined" if defined &dd; # prints that dd is defined
+
+=head2 SUB/LIST/1 (List functions defined in a package)
+
+The obvious choice is to use something like L<Package::Stash>
+(L<Package::Stash::XS> or L<Package::Stash::PP>), but when you cannot or do not
+want to use a module, there's some symbol table manipulation you can do
+yourself. But heed the warning in Package::Stash documentation: "Manipulating
+stashes (Perl's symbol tables) is occasionally necessary, but incredibly messy,
+and easy to get wrong. This module hides all of that behind a simple API."
+
+ my @subs;
+ my $symtbl = \%{"$pkg\::"};
+ for my $key (keys %$symbl) {
+     my $val = $symtbl->{$key};
+     push @subs, $key if ref $val eq 'CODE' || # perl >= 5.22
+         defined *$val{CODE};
+ }
+
+This will include routines imported from another package.
 
 
 
